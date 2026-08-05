@@ -1,0 +1,282 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>今日の道徳メガネ｜まなび工房</title>
+<style>
+:root {
+  --navy:#24384f;
+  --text:#334453;
+  --muted:#6f7b86;
+  --gold:#d9b35d;
+  --line:#e7eaee;
+  --soft:#fafbfc;
+  --white:#ffffff;
+}
+* { box-sizing:border-box; }
+html, body {
+  margin:0;
+  padding:0;
+  background:transparent;
+  color:var(--text);
+  font-family:"Noto Sans JP","Yu Gothic","YuGothic","Hiragino Kaku Gothic ProN",Arial,sans-serif;
+}
+body { min-height:100vh; }
+.wrap {
+  max-width:860px;
+  margin:0 auto;
+  padding:10px 10px 18px;
+}
+.panel {
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:14px;
+  overflow:hidden;
+}
+.top {
+  padding:22px 28px 18px;
+  text-align:center;
+  border-bottom:1px solid var(--line);
+}
+.eyebrow {
+  color:var(--gold);
+  font-size:.78rem;
+  letter-spacing:.12em;
+  font-weight:700;
+}
+h1 {
+  margin:6px 0 0;
+  color:var(--navy);
+  font-size:clamp(1.6rem,4vw,2.1rem);
+  font-weight:600;
+  letter-spacing:.03em;
+}
+.body {
+  padding:28px 34px 26px;
+}
+.dateRow {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  margin-bottom:26px;
+}
+.date {
+  font-size:1rem;
+  color:var(--muted);
+}
+.nav {
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+button, select { font:inherit; }
+button {
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--navy);
+  border-radius:8px;
+  padding:8px 12px;
+  cursor:pointer;
+}
+button:hover { background:var(--soft); }
+.today {
+  border-color:var(--navy);
+  font-weight:700;
+}
+.sectionLabel {
+  font-size:.78rem;
+  letter-spacing:.1em;
+  color:var(--muted);
+  font-weight:700;
+  margin-bottom:8px;
+}
+.anniversary {
+  color:var(--navy);
+  font-size:clamp(1.35rem,3.4vw,1.85rem);
+  font-weight:600;
+  line-height:1.55;
+  margin-bottom:30px;
+}
+.meganeArea {
+  text-align:center;
+  padding:24px 18px 26px;
+  margin-bottom:26px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.lensMark {
+  width:58px;
+  height:58px;
+  margin:0 auto 10px;
+  border:2px solid var(--navy);
+  border-radius:50%;
+  position:relative;
+}
+.lensMark::after {
+  content:"";
+  position:absolute;
+  width:24px;
+  height:2px;
+  background:var(--navy);
+  right:-17px;
+  bottom:4px;
+  transform:rotate(45deg);
+  transform-origin:left center;
+}
+.lensDot {
+  width:8px;
+  height:8px;
+  background:var(--gold);
+  border-radius:50%;
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+}
+.meganeTitle {
+  font-size:.83rem;
+  color:var(--muted);
+  margin-bottom:8px;
+}
+.megane {
+  color:var(--navy);
+  font-size:clamp(1.65rem,4.7vw,2.35rem);
+  font-weight:700;
+  line-height:1.5;
+}
+.explain {
+  line-height:2;
+  font-size:1rem;
+  color:var(--text);
+}
+.bottom {
+  margin-top:24px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+select {
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:8px 12px;
+  background:white;
+  color:var(--text);
+}
+.notice {
+  margin-top:12px;
+  text-align:center;
+  color:var(--muted);
+  font-size:.82rem;
+}
+@media (max-width:640px) {
+  .wrap { padding:6px; }
+  .top { padding:18px 18px 15px; }
+  .body { padding:22px 18px; }
+  .dateRow {
+    flex-direction:column;
+    align-items:flex-start;
+    margin-bottom:22px;
+  }
+  .nav {
+    width:100%;
+    justify-content:space-between;
+  }
+  .nav button {
+    flex:1;
+    padding:9px 8px;
+  }
+  .meganeArea { padding:22px 10px 24px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="panel" aria-live="polite">
+    <div class="top">
+      <div class="eyebrow">まなび工房</div>
+      <h1>今日の道徳メガネ</h1>
+    </div>
+
+    <div class="body">
+      <div class="dateRow">
+        <div class="date" id="dateText">8月1日</div>
+        <div class="nav">
+          <button id="prevBtn">← 前の日</button>
+          <button id="todayBtn" class="today">今日</button>
+          <button id="nextBtn">次の日 →</button>
+        </div>
+      </div>
+
+      <div class="sectionLabel">今日は何の日？</div>
+      <div class="anniversary" id="anniversary"></div>
+
+      <div class="meganeArea">
+        <div class="lensMark" aria-hidden="true"><span class="lensDot"></span></div>
+        <div class="meganeTitle">今日の道徳メガネ</div>
+        <div class="megane" id="megane"></div>
+      </div>
+
+      <div class="sectionLabel">解説</div>
+      <div class="explain" id="explanation"></div>
+
+      <div class="bottom">
+        <label for="daySelect">8月の日付</label>
+        <select id="daySelect"></select>
+      </div>
+      <div class="notice" id="notice"></div>
+    </div>
+  </section>
+</div>
+
+<script>
+const augustData = [{"day": 1, "anniversary": "水の日", "megane": "自然愛護", "explanation": "水の貴重さや水資源の大切さについて考える日です。暮らしや生命を支える水に目を向け、自然を守ることを考えるメガネです。"}, {"day": 2, "anniversary": "学制発布記念日", "megane": "よりよい集団生活", "explanation": "1872年に、日本の近代的な学校制度の基礎となる「学制」が発布された日です。みんなが学ぶ学校を、よりよい場所にしていくことを考えるメガネです。"}, {"day": 3, "anniversary": "はちみつの日", "megane": "感動、畏敬の念", "explanation": "「はち（8）みつ（3）」の語呂合わせによる日です。小さなハチが力を合わせて蜜を集める自然の仕組みに、驚きや感動をもって目を向けるメガネです。"}, {"day": 4, "anniversary": "箸の日", "megane": "礼儀", "explanation": "「はし」の語呂合わせから、箸や日本の食文化について考える日です。箸の扱い方や食事の作法を通して、相手を大切にする振る舞いを考えるメガネです。"}, {"day": 5, "anniversary": "タクシーの日", "megane": "親切・思いやり", "explanation": "日本で初めてタクシー会社が営業を始めたことにちなんだ日です。移動に困っている人を支える仕事から、相手の必要を考えて助けることに目を向けるメガネです。"}, {"day": 6, "anniversary": "広島平和記念日", "megane": "生命の尊さ", "explanation": "1945年、広島に原子爆弾が投下された日です。失われた多くの生命を思い、命のかけがえのなさと平和の大切さを考えるメガネです。"}, {"day": 7, "anniversary": "花火人の日", "megane": "国や郷土を愛する心", "explanation": "「はなび」の語呂合わせから、花火文化の発展や継承を願って設けられた日です。地域に受け継がれてきた文化を大切にすることを考えるメガネです。"}, {"day": 8, "anniversary": "親孝行の日", "megane": "家族愛、家庭生活の充実", "explanation": "「はは」「パパ」の語呂合わせなどから、親への感謝を考える日とされています。家族に支えられていることを振り返り、家庭で自分にできることを考えるメガネです。"}, {"day": 9, "anniversary": "長崎原爆の日", "megane": "生命の尊さ", "explanation": "1945年、長崎に原子爆弾が投下された日です。一人一人の命の重さに目を向け、同じ悲劇を繰り返さないことを考えるメガネです。"}, {"day": 10, "anniversary": "道の日", "megane": "勤労、公共の精神", "explanation": "道路の役割や大切さについて関心を高めるために設けられた日です。道路を造り、守る人々の働きと、みんなが使うものを大切にする心を考えるメガネです。"}, {"day": 11, "anniversary": "山の日", "megane": "自然愛護", "explanation": "山に親しみ、その恩恵に感謝する国民の祝日です。山や森林が人や生き物の暮らしを支えていることに目を向け、自然を守ることを考えるメガネです。"}, {"day": 12, "anniversary": "国際青少年デー", "megane": "国際理解・国際親善", "explanation": "世界の若者が直面する課題や、社会への参加について考える国際デーです。国や文化の違いを越えて、共によりよい社会をつくることを考えるメガネです。"}, {"day": 13, "anniversary": "国際左利きの日", "megane": "自分の特徴・長所・短所", "explanation": "左利きの人の生活や個性への理解を広げる日です。人にはそれぞれ違った特徴があり、その違いを自分らしさとして大切にすることを考えるメガネです。"}, {"day": 14, "anniversary": "専売特許の日", "megane": "真理の探究", "explanation": "1885年、日本で初めて特許が交付されたことにちなんだ日です。疑問をもち、工夫を重ね、新しいものを生み出そうとする姿に目を向けるメガネです。"}, {"day": 15, "anniversary": "終戦の日", "megane": "自由・責任", "explanation": "1945年、日本の国民に戦争の終結が伝えられた日です。平和や自由は当たり前に続くものではなく、一人一人の判断と責任によって守られることを考えるメガネです。"}, {"day": 16, "anniversary": "五山送り火", "megane": "国や郷土を愛する心", "explanation": "京都で、お盆に迎えた先祖の霊を送るために行われる伝統行事です。地域で長く受け継がれてきた願いや文化を大切にすることを考えるメガネです。"}, {"day": 17, "anniversary": "パイナップルの日", "megane": "感謝", "explanation": "「パ（8）イ（1）ナ（7）ップル」の語呂合わせによる日です。食べ物が自然の恵みや、多くの人の働きによって届いていることへの感謝を考えるメガネです。"}, {"day": 18, "anniversary": "米の日", "megane": "感謝", "explanation": "「米」の字を分けると「八十八」に見えることに由来する日です。毎日の食事を支える自然の恵みや、生産する人の働きに感謝するメガネです。"}, {"day": 19, "anniversary": "俳句の日", "megane": "誠実", "explanation": "「はい（8）く（19）」の語呂合わせから、俳句に親しむために設けられた日です。自分が見付けたことや感じたことを、飾らず丁寧に言葉にすることを考えるメガネです。"}, {"day": 20, "anniversary": "交通信号の日", "megane": "規則の尊重", "explanation": "日本で初めて三色式の交通信号機が設置されたことにちなんだ日です。みんなの安全を守るために、きまりの意味を理解して守ることを考えるメガネです。"}, {"day": 21, "anniversary": "女子大生の日", "megane": "よりよく生きる喜び", "explanation": "1913年、東北帝国大学で日本初の女子学生の合格が発表されたことにちなんだ日です。困難があっても学びたいという願いをもち、自分の道を切り開く生き方に目を向けるメガネです。"}, {"day": 22, "anniversary": "チンチン電車の日", "megane": "勤労、公共の精神", "explanation": "東京で初めて路面電車が走ったことにちなんだ日です。交通を支える人々の働きや、多くの人が利用する公共のものについて考えるメガネです。"}, {"day": 23, "anniversary": "奴隷貿易とその廃止を記念する国際デー", "megane": "相互理解・寛容", "explanation": "奴隷貿易の歴史を記憶し、差別や人を支配することのない社会を考える国際デーです。異なる立場や背景をもつ人を理解し、尊重することを考えるメガネです。"}, {"day": 24, "anniversary": "ジャパンパラリンピックデー", "megane": "希望・勇気", "explanation": "パラスポーツへの理解と関心を高めるための日です。自分の可能性を信じ、目標に向かって挑戦する姿に目を向けるメガネです。"}, {"day": 25, "anniversary": "即席ラーメン記念日", "megane": "真理の探究", "explanation": "世界初の即席ラーメンが発売されたことにちなんだ日です。暮らしをよりよくするために、何度も試し、工夫し続ける姿を考えるメガネです。"}, {"day": 26, "anniversary": "人権宣言記念日", "megane": "公正・公平・社会正義", "explanation": "1789年、フランスで「人間と市民の権利の宣言」が採択されたことにちなんだ日です。誰もが等しく大切にされる社会について考えるメガネです。"}, {"day": 27, "anniversary": "世界湖沼の日", "megane": "自然愛護", "explanation": "湖や沼がもつ大切な役割を知り、その環境を守ることを考える日です。水辺に暮らす生き物と、人の生活を支える自然を大切にするメガネです。"}, {"day": 28, "anniversary": "民放テレビスタートの日", "megane": "自由・責任", "explanation": "1953年、日本で初めて民間テレビ放送が始まったことにちなんだ日です。情報を伝えたり受け取ったりする自由と、それに伴う責任について考えるメガネです。"}, {"day": 29, "anniversary": "焼き肉の日", "megane": "友情・信頼", "explanation": "「や（8）きに（2）く（9）」の語呂合わせによる日です。一緒に食事を囲み、会話を交わす時間を通して、人とのつながりを深めることを考えるメガネです。"}, {"day": 30, "anniversary": "冒険家の日", "megane": "希望・勇気", "explanation": "日本人冒険家による世界的な挑戦にちなんだ日です。未知のことにも希望をもち、失敗や困難を恐れず挑戦する姿に目を向けるメガネです。"}, {"day": 31, "anniversary": "野菜の日", "megane": "節度・節制", "explanation": "「や（8）さ（3）い（1）」の語呂合わせから、野菜について知り、食生活を見直すために設けられた日です。健康を考え、偏りのない生活を整えることを考えるメガネです。"}];
+let currentIndex = 0;
+
+const dateText = document.getElementById('dateText');
+const anniversary = document.getElementById('anniversary');
+const megane = document.getElementById('megane');
+const explanation = document.getElementById('explanation');
+const daySelect = document.getElementById('daySelect');
+const notice = document.getElementById('notice');
+
+augustData.forEach(item => {
+  const option = document.createElement('option');
+  option.value = item.day;
+  option.textContent = `8月${item.day}日`;
+  daySelect.appendChild(option);
+});
+
+function render(index) {
+  currentIndex = Math.max(0, Math.min(augustData.length - 1, index));
+  const item = augustData[currentIndex];
+  dateText.textContent = `8月${item.day}日`;
+  anniversary.textContent = item.anniversary;
+  megane.textContent = item.megane;
+  explanation.textContent = item.explanation;
+  daySelect.value = item.day;
+}
+
+function showToday() {
+  const now = new Date();
+  if (now.getMonth() === 7) {
+    render(now.getDate() - 1);
+    notice.textContent = "";
+  } else {
+    render(0);
+    notice.textContent = "現在は8月ではないため、8月1日を表示しています。";
+  }
+}
+
+document.getElementById('prevBtn').addEventListener('click', () => render(currentIndex - 1));
+document.getElementById('nextBtn').addEventListener('click', () => render(currentIndex + 1));
+document.getElementById('todayBtn').addEventListener('click', showToday);
+daySelect.addEventListener('change', e => render(Number(e.target.value) - 1));
+
+showToday();
+</script>
+</body>
+</html>
