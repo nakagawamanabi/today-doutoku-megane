@@ -1,0 +1,276 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>今日の道徳メガネ｜まなび工房</title>
+<style>
+:root {
+  --navy:#24384f;
+  --text:#334453;
+  --muted:#6f7b86;
+  --gold:#d9b35d;
+  --line:#e7eaee;
+  --soft:#fafbfc;
+  --white:#ffffff;
+}
+* { box-sizing:border-box; }
+html, body {
+  margin:0;
+  padding:0;
+  background:transparent;
+  color:var(--text);
+  font-family:"Noto Sans JP","Yu Gothic","YuGothic","Hiragino Kaku Gothic ProN",Arial,sans-serif;
+}
+body { min-height:100vh; }
+.wrap {
+  max-width:860px;
+  margin:0 auto;
+  padding:10px 10px 18px;
+}
+.panel {
+  background:var(--white);
+  border:1px solid var(--line);
+  border-radius:14px;
+  overflow:hidden;
+}
+.top {
+  padding:22px 28px 18px;
+  text-align:center;
+  border-bottom:1px solid var(--line);
+}
+.eyebrow {
+  color:var(--gold);
+  font-size:.78rem;
+  letter-spacing:.12em;
+  font-weight:700;
+}
+h1 {
+  margin:6px 0 0;
+  color:var(--navy);
+  font-size:clamp(1.6rem,4vw,2.1rem);
+  font-weight:600;
+  letter-spacing:.03em;
+}
+.body {
+  padding:28px 34px 26px;
+}
+.dateRow {
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:14px;
+  margin-bottom:26px;
+}
+.date {
+  font-size:1rem;
+  color:var(--muted);
+}
+.nav {
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+button, select { font:inherit; }
+button {
+  border:1px solid var(--line);
+  background:#fff;
+  color:var(--navy);
+  border-radius:8px;
+  padding:8px 12px;
+  cursor:pointer;
+}
+button:hover { background:var(--soft); }
+.today {
+  border-color:var(--navy);
+  font-weight:700;
+}
+.sectionLabel {
+  font-size:.78rem;
+  letter-spacing:.1em;
+  color:var(--muted);
+  font-weight:700;
+  margin-bottom:8px;
+}
+.anniversary {
+  color:var(--navy);
+  font-size:clamp(1.35rem,3.4vw,1.85rem);
+  font-weight:600;
+  line-height:1.55;
+  margin-bottom:30px;
+}
+.meganeArea {
+  text-align:center;
+  padding:24px 18px 26px;
+  margin-bottom:26px;
+  border-top:1px solid var(--line);
+  border-bottom:1px solid var(--line);
+}
+.lensMark {
+  width:58px;
+  height:58px;
+  margin:0 auto 10px;
+  border:2px solid var(--navy);
+  border-radius:50%;
+  position:relative;
+}
+.lensMark::after {
+  content:"";
+  position:absolute;
+  width:24px;
+  height:2px;
+  background:var(--navy);
+  right:-17px;
+  bottom:4px;
+  transform:rotate(45deg);
+  transform-origin:left center;
+}
+.lensDot {
+  width:8px;
+  height:8px;
+  background:var(--gold);
+  border-radius:50%;
+  position:absolute;
+  left:50%;
+  top:50%;
+  transform:translate(-50%,-50%);
+}
+.meganeTitle {
+  font-size:.83rem;
+  color:var(--muted);
+  margin-bottom:8px;
+}
+.megane {
+  color:var(--navy);
+  font-size:clamp(1.65rem,4.7vw,2.35rem);
+  font-weight:700;
+  line-height:1.5;
+}
+.explain {
+  line-height:2;
+  font-size:1rem;
+  color:var(--text);
+}
+.bottom {
+  margin-top:24px;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  gap:10px;
+  flex-wrap:wrap;
+}
+select {
+  border:1px solid var(--line);
+  border-radius:8px;
+  padding:8px 12px;
+  background:white;
+  color:var(--text);
+}
+.notice {
+  margin-top:12px;
+  text-align:center;
+  color:var(--muted);
+  font-size:.82rem;
+}
+@media (max-width:640px) {
+  .wrap { padding:6px; }
+  .top { padding:18px 18px 15px; }
+  .body { padding:22px 18px; }
+  .dateRow {
+    flex-direction:column;
+    align-items:flex-start;
+    margin-bottom:22px;
+  }
+  .nav {
+    width:100%;
+    justify-content:space-between;
+  }
+  .nav button {
+    flex:1;
+    padding:9px 8px;
+  }
+  .meganeArea { padding:22px 10px 24px; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="panel" aria-live="polite">
+    <div class="top">
+      <div class="eyebrow">まなび工房</div>
+      <h1>今日の道徳メガネ</h1>
+    </div>
+
+    <div class="body">
+      <div class="dateRow">
+        <div class="date" id="dateText">8月1日</div>
+        <div class="nav">
+          <button id="prevBtn">← 前の日</button>
+          <button id="todayBtn" class="today">今日</button>
+          <button id="nextBtn">次の日 →</button>
+        </div>
+      </div>
+
+      <div class="sectionLabel">今日は何の日？</div>
+      <div class="anniversary" id="anniversary"></div>
+
+      <div class="meganeArea">
+        <div class="lensMark" aria-hidden="true"><span class="lensDot"></span></div>
+        <div class="meganeTitle">今日の道徳メガネ</div>
+        <div class="megane" id="megane"></div>
+      </div>
+
+      <div class="sectionLabel">解説</div>
+      <div class="explain" id="explanation"></div>
+
+      <div class="bottom">
+        <label for="monthSelect">月</label>
+        <select id="monthSelect"><option value="8">8月</option><option value="9">9月</option><option value="10">10月</option><option value="11">11月</option></select>
+        <label for="daySelect">日</label>
+        <select id="daySelect"></select>
+      </div>
+      <div class="notice" id="notice"></div>
+    </div>
+  </section>
+</div>
+
+<script>
+const data = {"8": [{"day": 1, "anniversary": "水の日", "megane": "自然愛護", "explanation": "水の貴重さや水資源の大切さについて考える日です。暮らしや生命を支える水に目を向け、自然を守ることを考えるメガネです。"}, {"day": 2, "anniversary": "学制発布記念日", "megane": "よりよい集団生活", "explanation": "1872年に、日本の近代的な学校制度の基礎となる「学制」が発布された日です。みんなが学ぶ学校を、よりよい場所にしていくことを考えるメガネです。"}, {"day": 3, "anniversary": "はちみつの日", "megane": "感動、畏敬の念", "explanation": "「はち（8）みつ（3）」の語呂合わせによる日です。小さなハチが力を合わせて蜜を集める自然の仕組みに、驚きや感動をもって目を向けるメガネです。"}, {"day": 4, "anniversary": "箸の日", "megane": "礼儀", "explanation": "「はし」の語呂合わせから、箸や日本の食文化について考える日です。箸の扱い方や食事の作法を通して、相手を大切にする振る舞いを考えるメガネです。"}, {"day": 5, "anniversary": "タクシーの日", "megane": "親切・思いやり", "explanation": "日本で初めてタクシー会社が営業を始めたことにちなんだ日です。移動に困っている人を支える仕事から、相手の必要を考えて助けることに目を向けるメガネです。"}, {"day": 6, "anniversary": "広島平和記念日", "megane": "生命の尊さ", "explanation": "1945年、広島に原子爆弾が投下された日です。失われた多くの生命を思い、命のかけがえのなさと平和の大切さを考えるメガネです。"}, {"day": 7, "anniversary": "花火人の日", "megane": "国や郷土を愛する心", "explanation": "「はなび」の語呂合わせから、花火文化の発展や継承を願って設けられた日です。地域に受け継がれてきた文化を大切にすることを考えるメガネです。"}, {"day": 8, "anniversary": "親孝行の日", "megane": "家族愛、家庭生活の充実", "explanation": "「はは」「パパ」の語呂合わせなどから、親への感謝を考える日とされています。家族に支えられていることを振り返り、家庭で自分にできることを考えるメガネです。"}, {"day": 9, "anniversary": "長崎原爆の日", "megane": "生命の尊さ", "explanation": "1945年、長崎に原子爆弾が投下された日です。一人一人の命の重さに目を向け、同じ悲劇を繰り返さないことを考えるメガネです。"}, {"day": 10, "anniversary": "道の日", "megane": "勤労、公共の精神", "explanation": "道路の役割や大切さについて関心を高めるために設けられた日です。道路を造り、守る人々の働きと、みんなが使うものを大切にする心を考えるメガネです。"}, {"day": 11, "anniversary": "山の日", "megane": "自然愛護", "explanation": "山に親しみ、その恩恵に感謝する国民の祝日です。山や森林が人や生き物の暮らしを支えていることに目を向け、自然を守ることを考えるメガネです。"}, {"day": 12, "anniversary": "国際青少年デー", "megane": "国際理解・国際親善", "explanation": "世界の若者が直面する課題や、社会への参加について考える国際デーです。国や文化の違いを越えて、共によりよい社会をつくることを考えるメガネです。"}, {"day": 13, "anniversary": "国際左利きの日", "megane": "自分の特徴・長所・短所", "explanation": "左利きの人の生活や個性への理解を広げる日です。人にはそれぞれ違った特徴があり、その違いを自分らしさとして大切にすることを考えるメガネです。"}, {"day": 14, "anniversary": "専売特許の日", "megane": "真理の探究", "explanation": "1885年、日本で初めて特許が交付されたことにちなんだ日です。疑問をもち、工夫を重ね、新しいものを生み出そうとする姿に目を向けるメガネです。"}, {"day": 15, "anniversary": "終戦の日", "megane": "自由・責任", "explanation": "1945年、日本の国民に戦争の終結が伝えられた日です。平和や自由は当たり前に続くものではなく、一人一人の判断と責任によって守られることを考えるメガネです。"}, {"day": 16, "anniversary": "五山送り火", "megane": "国や郷土を愛する心", "explanation": "京都で、お盆に迎えた先祖の霊を送るために行われる伝統行事です。地域で長く受け継がれてきた願いや文化を大切にすることを考えるメガネです。"}, {"day": 17, "anniversary": "パイナップルの日", "megane": "感謝", "explanation": "「パ（8）イ（1）ナ（7）ップル」の語呂合わせによる日です。食べ物が自然の恵みや、多くの人の働きによって届いていることへの感謝を考えるメガネです。"}, {"day": 18, "anniversary": "米の日", "megane": "感謝", "explanation": "「米」の字を分けると「八十八」に見えることに由来する日です。毎日の食事を支える自然の恵みや、生産する人の働きに感謝するメガネです。"}, {"day": 19, "anniversary": "俳句の日", "megane": "誠実", "explanation": "「はい（8）く（19）」の語呂合わせから、俳句に親しむために設けられた日です。自分が見付けたことや感じたことを、飾らず丁寧に言葉にすることを考えるメガネです。"}, {"day": 20, "anniversary": "交通信号の日", "megane": "規則の尊重", "explanation": "日本で初めて三色式の交通信号機が設置されたことにちなんだ日です。みんなの安全を守るために、きまりの意味を理解して守ることを考えるメガネです。"}, {"day": 21, "anniversary": "女子大生の日", "megane": "よりよく生きる喜び", "explanation": "1913年、東北帝国大学で日本初の女子学生の合格が発表されたことにちなんだ日です。困難があっても学びたいという願いをもち、自分の道を切り開く生き方に目を向けるメガネです。"}, {"day": 22, "anniversary": "チンチン電車の日", "megane": "勤労、公共の精神", "explanation": "東京で初めて路面電車が走ったことにちなんだ日です。交通を支える人々の働きや、多くの人が利用する公共のものについて考えるメガネです。"}, {"day": 23, "anniversary": "奴隷貿易とその廃止を記念する国際デー", "megane": "相互理解・寛容", "explanation": "奴隷貿易の歴史を記憶し、差別や人を支配することのない社会を考える国際デーです。異なる立場や背景をもつ人を理解し、尊重することを考えるメガネです。"}, {"day": 24, "anniversary": "ジャパンパラリンピックデー", "megane": "希望・勇気", "explanation": "パラスポーツへの理解と関心を高めるための日です。自分の可能性を信じ、目標に向かって挑戦する姿に目を向けるメガネです。"}, {"day": 25, "anniversary": "即席ラーメン記念日", "megane": "真理の探究", "explanation": "世界初の即席ラーメンが発売されたことにちなんだ日です。暮らしをよりよくするために、何度も試し、工夫し続ける姿を考えるメガネです。"}, {"day": 26, "anniversary": "人権宣言記念日", "megane": "公正・公平・社会正義", "explanation": "1789年、フランスで「人間と市民の権利の宣言」が採択されたことにちなんだ日です。誰もが等しく大切にされる社会について考えるメガネです。"}, {"day": 27, "anniversary": "世界湖沼の日", "megane": "自然愛護", "explanation": "湖や沼がもつ大切な役割を知り、その環境を守ることを考える日です。水辺に暮らす生き物と、人の生活を支える自然を大切にするメガネです。"}, {"day": 28, "anniversary": "民放テレビスタートの日", "megane": "自由・責任", "explanation": "1953年、日本で初めて民間テレビ放送が始まったことにちなんだ日です。情報を伝えたり受け取ったりする自由と、それに伴う責任について考えるメガネです。"}, {"day": 29, "anniversary": "焼き肉の日", "megane": "友情・信頼", "explanation": "「や（8）きに（2）く（9）」の語呂合わせによる日です。一緒に食事を囲み、会話を交わす時間を通して、人とのつながりを深めることを考えるメガネです。"}, {"day": 30, "anniversary": "冒険家の日", "megane": "希望・勇気", "explanation": "日本人冒険家による世界的な挑戦にちなんだ日です。未知のことにも希望をもち、失敗や困難を恐れず挑戦する姿に目を向けるメガネです。"}, {"day": 31, "anniversary": "野菜の日", "megane": "節度・節制", "explanation": "「や（8）さ（3）い（1）」の語呂合わせから、野菜について知り、食生活を見直すために設けられた日です。健康を考え、偏りのない生活を整えることを考えるメガネです。"}], "9": [{"day": 1, "anniversary": "防災の日", "megane": "節度・節制", "explanation": "災害についての認識を深め、備えを確かめる日です。普段から自分の生活を整え、いざというときに備えておくことの大切さを考えるメガネです。"}, {"day": 2, "anniversary": "宝くじの日", "megane": "自由・責任", "explanation": "「く（9）じ（2）」の語呂合わせから、宝くじの当せん金の引換え忘れを防ぐために設けられた日です。自分で選んだことには、その結果も含めて責任をもつことを考えるメガネです。"}, {"day": 3, "anniversary": "草の日", "megane": "自然愛護", "explanation": "「く（9）さ（3）」の語呂合わせにちなんだ日です。普段何気なく見ている草や植物にも目を向け、身近な自然を大切にすることを考えるメガネです。"}, {"day": 4, "anniversary": "クラシック音楽の日", "megane": "感動、畏敬の念", "explanation": "「ク（9）ラシ（4）ック」の語呂合わせにちなんだ日です。音楽の美しさや、人が生み出した優れた表現に触れたときの感動を大切にするメガネです。"}, {"day": 5, "anniversary": "国際チャリティー・デー", "megane": "親切・思いやり", "explanation": "困っている人を支える慈善活動の大切さについて考える国際デーです。相手の置かれている状況を考え、自分にできることをする思いやりについて考えるメガネです。"}, {"day": 6, "anniversary": "妹の日", "megane": "家族愛、家庭生活の充実", "explanation": "妹のかわいらしさや存在に目を向けようと提唱された記念日です。兄弟姉妹をはじめ、身近な家族との関わりや支え合いについて考えるメガネです。"}, {"day": 7, "anniversary": "青空のためのきれいな空気の国際デー", "megane": "自然愛護", "explanation": "きれいな空気の大切さや、大気汚染について考える国際デーです。私たちの生活を支える環境を守るために何ができるかを考えるメガネです。"}, {"day": 8, "anniversary": "国際識字デー", "megane": "真理の探究", "explanation": "誰もが読み書きを学べることの大切さについて考える国際デーです。知ること、学ぶことによって自分の世界を広げていくことの価値を考えるメガネです。"}, {"day": 9, "anniversary": "救急の日", "megane": "生命の尊さ", "explanation": "「きゅう（9）きゅう（9）」の語呂合わせから、救急医療について理解を深める日です。命を守るために働く人々の姿から、かけがえのない生命について考えるメガネです。"}, {"day": 10, "anniversary": "下水道の日", "megane": "勤労、公共の精神", "explanation": "下水道の役割や大切さへの理解を深める日です。普段は見えにくいところで私たちの衛生的な暮らしを支える仕事や、公共のために働くことについて考えるメガネです。"}, {"day": 11, "anniversary": "公衆電話の日", "megane": "よりよい集団生活", "explanation": "日本で初めて自動公衆電話が設置されたことにちなんだ日です。多くの人が一緒に使うものを大切にし、みんなが気持ちよく生活するために必要なことを考えるメガネです。"}, {"day": 12, "anniversary": "国連南南協力デー", "megane": "国際理解・国際親善", "explanation": "開発途上国同士が知識や経験を分かち合い、協力することの大切さを考える国際デーです。国や文化を越えて互いに支え合うことについて考えるメガネです。"}, {"day": 13, "anniversary": "世界の法の日", "megane": "規則の尊重", "explanation": "法によって世界の平和を確立しようという考えから生まれた日です。きまりは何のためにあるのか、みんなが安心して暮らすためのルールについて考えるメガネです。"}, {"day": 14, "anniversary": "コスモスの日", "megane": "友情・信頼", "explanation": "コスモスの花などを贈り合い、大切な人への思いを伝える日として知られています。身近な人を大切に思い、互いに信頼し合う関係について考えるメガネです。"}, {"day": 15, "anniversary": "国際民主主義デー", "megane": "公正・公平・社会正義", "explanation": "民主主義の大切さについて考える国際デーです。一部の人だけではなく、一人一人の考えや権利が大切にされる社会について考えるメガネです。"}, {"day": 16, "anniversary": "オゾン層保護のための国際デー", "megane": "自然愛護", "explanation": "地球を有害な紫外線から守るオゾン層と、その保護について考える国際デーです。地球環境を未来へつないでいくために自然を守ることを考えるメガネです。"}, {"day": 17, "anniversary": "世界患者安全の日", "megane": "誠実", "explanation": "医療を受ける人の安全について世界で考える日です。人の命や健康に関わるからこそ、ごまかさず、正確に、誠実に向き合うことの大切さを考えるメガネです。"}, {"day": 18, "anniversary": "国際同一賃金デー", "megane": "公正・公平・社会正義", "explanation": "同じ価値の仕事には公平な賃金が支払われる社会を目指す国際デーです。性別などによって不当に扱われず、誰もが公平に評価されることについて考えるメガネです。"}, {"day": 19, "anniversary": "苗字の日", "megane": "自分の特徴・長所・短所", "explanation": "明治時代、一般の人も苗字を名乗ることが認められたことにちなむ日です。自分の名前や自分らしさに目を向け、自分自身を見つめることにつなげるメガネです。"}, {"day": 20, "anniversary": "世界クリーンアップ・デー", "megane": "勤労、公共の精神", "explanation": "世界各地で清掃活動などを行い、地球をきれいにすることを考える国際デーです。自分たちが使う場所を、自分たちの力でよりよくしていくことについて考えるメガネです。"}, {"day": 21, "anniversary": "国際平和デー", "megane": "相互理解・寛容", "explanation": "世界の停戦と非暴力を願い、平和について考える国際デーです。考え方や立場が違う人とも互いを理解し、認め合うことが平和につながることを考えるメガネです。"}, {"day": 22, "anniversary": "秋分の日", "megane": "感謝", "explanation": "祖先を敬い、亡くなった人々をしのぶ国民の祝日です。自分の今の生活が、多くの人とのつながりや支えの上にあることに目を向け、感謝について考えるメガネです。"}, {"day": 23, "anniversary": "手話言語の国際デー", "megane": "相互理解・寛容", "explanation": "手話が大切な言語であることへの理解を広げる国際デーです。自分とは異なる伝え方や感じ方を知り、互いを理解しようとすることについて考えるメガネです。"}, {"day": 24, "anniversary": "世界海事デー", "megane": "希望・勇気", "explanation": "海運の安全や海洋環境などについて考える国際的な日です。広い海を越えて人や物をつなぐ仕事に目を向け、新しい世界へ踏み出すことについて考えるメガネです。"}, {"day": 25, "anniversary": "主婦休みの日", "megane": "家族愛、家庭生活の充実", "explanation": "日頃家事を担う人が休み、家族で家事について考えるきっかけとして設けられた日です。家庭生活は誰か一人に任せるのではなく、家族で支え合ってつくることを考えるメガネです。"}, {"day": 26, "anniversary": "核兵器の全面的廃絶のための国際デー", "megane": "生命の尊さ", "explanation": "核兵器のない世界を目指すことの重要性を考える国際デーです。多くの命を一瞬で奪う核兵器について知り、一人一人の生命のかけがえのなさを考えるメガネです。"}, {"day": 27, "anniversary": "世界観光デー", "megane": "国や郷土を愛する心", "explanation": "観光が社会や文化にもつ役割について考える国際デーです。他の地域を知ることを通して、自分たちの地域の自然、文化、暮らしのよさにも目を向けるメガネです。"}, {"day": 28, "anniversary": "情報へのユニバーサル・アクセスのための国際デー", "megane": "礼儀", "explanation": "誰もが必要な情報にアクセスできることの大切さについて考える国際デーです。情報を伝えるときにも、相手の立場や状況を考え、分かりやすく届けることを考えるメガネです。"}, {"day": 29, "anniversary": "食料のロスと廃棄に関する啓発の国際デー", "megane": "節度・節制", "explanation": "まだ食べられる食料が捨てられている問題について考える国際デーです。必要な分を考えて使い、食べ物を無駄にしない生活について考えるメガネです。"}, {"day": 30, "anniversary": "国際翻訳デー", "megane": "よりよく生きる喜び", "explanation": "言葉の違いを越えて人と人をつなぐ翻訳の役割をたたえる国際デーです。自分の力を生かして人と人をつなぎ、社会の中でよりよく生きることについて考えるメガネです。"}], "10": [{"day": 1, "anniversary": "メガネの日", "megane": "親切・思いやり", "explanation": "数字の「1001」がメガネの形に見えることにちなんだ日です。見え方や見えにくさは人によって違います。相手の困りごとに気付き、必要な手助けを考えるメガネです。"}, {"day": 2, "anniversary": "豆腐の日", "megane": "感謝", "explanation": "「とう（10）ふ（2）」の語呂合わせによる日です。大豆を育て、豆腐を作り、食卓へ届ける人々の働きに目を向け、感謝を考えるメガネです。"}, {"day": 3, "anniversary": "登山の日", "megane": "希望・勇気", "explanation": "「と（10）ざん（3）」の語呂合わせによる日です。山頂を目指して一歩ずつ進む姿から、難しいことにも勇気をもって挑戦し、やり抜くことを考えるメガネです。"}, {"day": 4, "anniversary": "世界動物の日", "megane": "生命の尊さ", "explanation": "動物の福祉や保護について考える日です。身近なペットや野生動物にも、それぞれかけがえのない命があることを考えるメガネです。"}, {"day": 5, "anniversary": "世界教師デー", "megane": "よりよい集団生活", "explanation": "先生の仕事や教育の大切さを考える国際デーです。先生も子どもも力を合わせ、みんなが安心して学べる学校や学級をつくることを考えるメガネです。"}, {"day": 6, "anniversary": "国際協力の日", "megane": "国際理解・国際親善", "explanation": "日本の国際協力の歩みにちなんだ日です。国や文化が違っても互いの暮らしを理解し、助け合うことを考えるメガネです。"}, {"day": 7, "anniversary": "ミステリー記念日", "megane": "真理の探究", "explanation": "推理小説で知られるエドガー・アラン・ポーの命日にちなんだ日です。すぐに決め付けず、手がかりを確かめ、なぜだろうと問い続ける姿勢を考えるメガネです。"}, {"day": 8, "anniversary": "木の日", "megane": "自然愛護", "explanation": "漢字の「十」と「八」を組み合わせると「木」になることにちなんだ日です。木々が生き物のすみかになり、暮らしを支えていることに目を向け、自然を大切にするメガネです。"}, {"day": 9, "anniversary": "世界郵便の日", "megane": "礼儀", "explanation": "世界の郵便のつながりを記念する日です。手紙を受け取る相手を思い、あいさつや言葉遣いを工夫して気持ちを伝えることを考えるメガネです。"}, {"day": 10, "anniversary": "目の愛護デー", "megane": "節度・節制", "explanation": "数字の「10・10」を横にすると目と眉のように見えることなどにちなむ日です。目を大切にするため、画面を見る時間や休憩の取り方を考えるメガネです。"}, {"day": 11, "anniversary": "ウインクの日", "megane": "相互理解・寛容", "explanation": "数字の「10」と「11」を横にすると片目を閉じた顔のように見えることにちなむ日です。同じ表情や合図でも受け止め方は人それぞれ。相手の感じ方を確かめ、理解しようとするメガネです。"}, {"day": 12, "anniversary": "豆乳の日", "megane": "節度・節制", "explanation": "10月は「豆乳月間」とも呼ばれ、12日は「豆乳の日」とされています。さまざまな食べ物や飲み物の特徴を知り、自分の健康を考えて選ぶことを考えるメガネです。"}, {"day": 13, "anniversary": "さつまいもの日", "megane": "勤労、公共の精神", "explanation": "さつまいもの名産地として知られる川越にちなんだ日です。おいしいさつまいもを育てるために工夫し、働く人々の姿から、仕事の意義を考えるメガネです。"}, {"day": 14, "anniversary": "鉄道の日", "megane": "規則の尊重", "explanation": "1872年に日本で最初の鉄道が開業したことを記念する日です。みんなが安全に電車を使えるよう、きまりの意味を考えて守るメガネです。"}, {"day": 15, "anniversary": "世界手洗いの日", "megane": "節度・節制", "explanation": "石けんを使った手洗いの大切さを広める日です。自分や周りの人の健康を守るため、毎日の習慣を整えることを考えるメガネです。"}, {"day": 16, "anniversary": "世界食料デー", "megane": "公正・公平・社会正義", "explanation": "世界の食料問題について考える国際デーです。十分に食べられない人がいることを知り、誰もが安心して食事をとれる社会について考えるメガネです。"}, {"day": 17, "anniversary": "貯蓄の日", "megane": "節度・節制", "explanation": "お金や資源を大切に使うことを考える日です。欲しいものをすぐに買うのではなく、本当に必要かを考えて選ぶメガネです。"}, {"day": 18, "anniversary": "冷凍食品の日", "megane": "感謝", "explanation": "冷凍食品のよさを知ってもらうための日です。食べ物を保存し、おいしく安全に届けるために工夫する人々の働きに目を向け、感謝を考えるメガネです。"}, {"day": 19, "anniversary": "海外旅行の日", "megane": "国際理解・国際親善", "explanation": "「遠（10）くへ行く（19）」の語呂合わせによる日です。外国の暮らしや文化に関心をもち、違いを楽しみながら理解しようとするメガネです。"}, {"day": 20, "anniversary": "リサイクルの日", "megane": "自然愛護", "explanation": "「ひと回り（10）、ふた回り（20）」の語呂合わせにちなんだ日です。使い終わったものを資源として生かし、自然環境への負担を減らすことを考えるメガネです。"}, {"day": 21, "anniversary": "あかりの日", "megane": "希望・勇気", "explanation": "エジソンが実用的な白熱電球の開発に成功したことにちなんだ日です。失敗しても工夫を重ね、目標に向かって挑戦し続ける姿を考えるメガネです。"}, {"day": 22, "anniversary": "平安遷都の日", "megane": "国や郷土を愛する心", "explanation": "794年に都が平安京へ移されたことにちなんだ日です。長い年月をかけて受け継がれた歴史や文化に目を向け、自分の地域の伝統も大切にするメガネです。"}, {"day": 23, "anniversary": "電信電話記念日", "megane": "親切・思いやり", "explanation": "日本の電信・電話の歩みにちなんだ日です。顔が見えない電話でも、相手の状況や気持ちを想像し、思いやりをもって言葉を届けることを考えるメガネです。"}, {"day": 24, "anniversary": "国連デー", "megane": "国際理解・国際親善", "explanation": "1945年に国際連合が発足したことを記念する日です。世界の国々が互いを理解し、協力して平和を守ろうとすることを考えるメガネです。"}, {"day": 25, "anniversary": "世界パスタデー", "megane": "家族愛、家庭生活の充実", "explanation": "パスタの魅力や食文化を広めるための日です。家族で料理を分担したり、食卓で話したりすることから、家庭を共につくることを考えるメガネです。"}, {"day": 26, "anniversary": "柿の日", "megane": "感動、畏敬の念", "explanation": "正岡子規が柿を詠んだ俳句にちなんだ日です。柿の色や秋の景色、季節の美しさに心を動かすことを大切にするメガネです。"}, {"day": 27, "anniversary": "読書の日", "megane": "感動、畏敬の念", "explanation": "読書週間が始まる日です。物語の言葉や表現に触れ、心が震えるような感動や美しさを味わうことを考えるメガネです。"}, {"day": 28, "anniversary": "速記記念日", "megane": "誠実", "explanation": "日本で速記の講習会が開かれたことにちなんだ日です。人が話したことを自分の都合で変えず、正確に伝える誠実さを考えるメガネです。"}, {"day": 29, "anniversary": "おしぼりの日", "megane": "親切・思いやり", "explanation": "「て（10）をふ（2）く（9）」の語呂合わせによる日です。おしぼりを用意するような小さな心配りから、相手が気持ちよく過ごせるようにする親切を考えるメガネです。"}, {"day": 30, "anniversary": "初恋の日", "megane": "親切・思いやり", "explanation": "島崎藤村の詩「初恋」が発表されたことにちなんだ日です。誰かを大切に思うとき、自分の気持ちだけでなく相手の気持ちも尊重することを考えるメガネです。"}, {"day": 31, "anniversary": "ハロウィン", "megane": "自由・責任", "explanation": "仮装や飾り付けを楽しむ行事です。自分が楽しむ自由と、周りの人の安全や気持ちを大切にする責任について考えるメガネです。"}], "11": [{"day": 1, "anniversary": "犬の日", "megane": "生命の尊さ", "explanation": "犬の「ワン（1）ワン（1）ワン（1）」という鳴き声にちなんだ日です。動物にもかけがえのない命があり、最後まで大切に世話をすることを考えるメガネです。"}, {"day": 2, "anniversary": "習字の日", "megane": "礼儀", "explanation": "「いい（11）もじ（02）」の語呂合わせによる日です。読む相手のことを考えて、文字を読みやすく書いたり、丁寧に伝えたりすることを考えるメガネです。"}, {"day": 3, "anniversary": "文化の日", "megane": "国や郷土を愛する心", "explanation": "自由と平和を愛し、文化をすすめる国民の祝日です。昔から受け継がれた文化や、地域に残る伝統のよさを考えるメガネです。"}, {"day": 4, "anniversary": "いいよの日", "megane": "相互理解・寛容", "explanation": "「いい（11）よ（4）」の語呂合わせによる日です。自分と違う意見にも耳を傾け、相手の考えを受け止めようとするメガネです。"}, {"day": 5, "anniversary": "津波防災の日", "megane": "生命の尊さ", "explanation": "津波から命を守るための備えについて考える日です。自分も周りの人も命を守れるよう、避難の方法を確かめることを考えるメガネです。"}, {"day": 6, "anniversary": "お見合い記念日", "megane": "家族愛、家庭生活の充実", "explanation": "かつて日本で行われた集団お見合いにちなんだ日です。家族の形はさまざまですが、互いを大切にし、支え合う家庭について考えるメガネです。"}, {"day": 7, "anniversary": "立冬", "megane": "自然愛護", "explanation": "2026年の立冬は11月7日。暦の上で冬が始まる頃です。木々の葉や空気の冷たさなど、季節とともに変わる自然に目を向けるメガネです。"}, {"day": 8, "anniversary": "いい歯の日", "megane": "節度・節制", "explanation": "「いい（11）は（8）」の語呂合わせによる日です。歯を大切にするため、歯磨きや食生活の習慣を整えることを考えるメガネです。"}, {"day": 9, "anniversary": "119番の日", "megane": "勤労、公共の精神", "explanation": "火事や救急のときに使う119番について理解を深める日です。人々の命や安全を守るために働く消防士や救急隊員の仕事を考えるメガネです。"}, {"day": 10, "anniversary": "トイレの日", "megane": "規則の尊重", "explanation": "「いい（11）ト（10）イレ」の語呂合わせによる日です。みんなが使うトイレを気持ちよく利用するために、きまりやマナーを守ることを考えるメガネです。"}, {"day": 11, "anniversary": "ポッキー＆プリッツの日", "megane": "友情・信頼", "explanation": "細長いお菓子の形が数字の「1」に似ていることにちなんだ日です。友達と一緒に楽しむ時間を通して、互いを大切にする関係を育てることを考えるメガネです。"}, {"day": 12, "anniversary": "皮膚の日", "megane": "自分の特徴・長所・短所", "explanation": "「いい（11）ひふ（12）」の語呂合わせによる日です。肌の特徴は一人一人違います。自分の体の特徴を知り、自分らしさを大切にすることを考えるメガネです。"}, {"day": 13, "anniversary": "いいひざの日", "megane": "節度・節制", "explanation": "「いい（11）ひざ（13）」の語呂合わせによる日です。元気に体を動かすために、運動と休養のバランスを考えるメガネです。"}, {"day": 14, "anniversary": "世界糖尿病デー", "megane": "節度・節制", "explanation": "糖尿病への理解を広める国際デーです。健康にはさまざまな要因が関わります。自分にできる食事や運動などの生活習慣を考えるメガネです。"}, {"day": 15, "anniversary": "七五三", "megane": "感謝", "explanation": "子どもの健やかな成長を祝い、これからの幸せを願う行事です。成長を見守り、支えてくれた人たちへの感謝を考えるメガネです。"}, {"day": 16, "anniversary": "国際寛容デー", "megane": "相互理解・寛容", "explanation": "文化や考え方の違いを尊重し、互いに理解し合うことを考える国際デーです。違う意見をもつ人も大切にするメガネです。"}, {"day": 17, "anniversary": "将棋の日", "megane": "規則の尊重", "explanation": "江戸時代の御城将棋に由来する日です。勝ち負けを競うときにも、共通のルールを守るからこそ安心して楽しめることを考えるメガネです。"}, {"day": 18, "anniversary": "土木の日", "megane": "勤労、公共の精神", "explanation": "「土木」の文字などにちなんだ日です。道路や橋を造り、安全な暮らしを支える人々の働きを考えるメガネです。"}, {"day": 19, "anniversary": "世界トイレの日", "megane": "国際理解・国際親善", "explanation": "安全なトイレを利用できない人々がいることや、世界の衛生環境について考える国際デーです。国による暮らしの違いを知り、共に課題を解決することを考えるメガネです。"}, {"day": 20, "anniversary": "世界こどもの日", "megane": "公正・公平・社会正義", "explanation": "世界の子どもたちの権利と幸せについて考える国際デーです。どこで生まれても、すべての子どもが大切にされる社会を考えるメガネです。"}, {"day": 21, "anniversary": "世界テレビ・デー", "megane": "自由・責任", "explanation": "テレビが社会に果たす役割について考える国際デーです。情報を伝えたり受け取ったりする自由と、確かめて判断する責任を考えるメガネです。"}, {"day": 22, "anniversary": "いい夫婦の日", "megane": "家族愛、家庭生活の充実", "explanation": "「いい（11）ふうふ（22）」の語呂合わせによる日です。家族が互いの思いを大切にし、協力して暮らすことを考えるメガネです。"}, {"day": 23, "anniversary": "勤労感謝の日", "megane": "感謝", "explanation": "勤労をたっとび、生産を祝い、国民が互いに感謝し合う国民の祝日です。毎日の暮らしを支える多くの人の働きに感謝するメガネです。"}, {"day": 24, "anniversary": "進化の日", "megane": "真理の探究", "explanation": "ダーウィンの『種の起源』が出版されたことにちなんだ日です。生き物の不思議に問いをもち、観察や証拠を重ねて真実を探究することを考えるメガネです。"}, {"day": 25, "anniversary": "OLの日", "megane": "勤労、公共の精神", "explanation": "「OL」という言葉が使われ始めたことにちなんだ日です。仕事にはさまざまな種類があり、多くの人の働きが社会を支えていることを考えるメガネです。"}, {"day": 26, "anniversary": "いい風呂の日", "megane": "家族愛、家庭生活の充実", "explanation": "「いい（11）ふろ（26）」の語呂合わせによる日です。家族みんなが心地よく過ごせるよう、お風呂の準備や片付けを分担することを考えるメガネです。"}, {"day": 27, "anniversary": "ノーベル賞制定記念日", "megane": "希望・勇気", "explanation": "ノーベル賞の創設につながる遺言が残されたことにちなんだ日です。人々の役に立つことを願い、難しい研究にも挑み続ける姿を考えるメガネです。"}, {"day": 28, "anniversary": "太平洋記念日", "megane": "感動、畏敬の念", "explanation": "マゼランの船団が太平洋に到達したことにちなんだ日です。果てしなく広がる海の大きさや自然の雄大さに、驚きや畏れをもって目を向けるメガネです。"}, {"day": 29, "anniversary": "いい肉の日", "megane": "感謝", "explanation": "「いい（11）にく（29）」の語呂合わせによる日です。食べ物が動物の命や、生産する人々の働きによって届くことに目を向け、感謝を考えるメガネです。"}, {"day": 30, "anniversary": "絵本の日", "megane": "感動、畏敬の念", "explanation": "絵本の魅力を広めるための日です。絵や言葉が生み出す美しい世界に触れ、心を動かされることを大切にするメガネです。"}]};
+let currentMonth = 8;
+let currentIndex = 0;
+const dateText = document.getElementById('dateText');
+const anniversary = document.getElementById('anniversary');
+const megane = document.getElementById('megane');
+const explanation = document.getElementById('explanation');
+const monthSelect = document.getElementById('monthSelect');
+const daySelect = document.getElementById('daySelect');
+const notice = document.getElementById('notice');
+function refreshDayOptions(month) {
+  daySelect.innerHTML='';
+  data[String(month)].forEach(item=>{ const o=document.createElement('option'); o.value=item.day; o.textContent=`${item.day}日`; daySelect.appendChild(o); });
+}
+function render(month,index) {
+  currentMonth=month; const arr=data[String(month)]; currentIndex=Math.max(0,Math.min(arr.length-1,index)); const item=arr[currentIndex];
+  dateText.textContent=`${month}月${item.day}日`; anniversary.textContent=item.anniversary; megane.textContent=item.megane; explanation.textContent=item.explanation;
+  monthSelect.value=String(month); refreshDayOptions(month); daySelect.value=item.day;
+}
+function move(delta) {
+  let m=currentMonth, i=currentIndex+delta;
+  if(i<0){ if(m>8){m--;i=data[String(m)].length-1;} else i=0; }
+  else if(i>=data[String(m)].length){ if(m<11){m++;i=0;} else i=data['11'].length-1; }
+  render(m,i); notice.textContent='';
+}
+function showToday() {
+  const now=new Date(); const m=now.getMonth()+1, d=now.getDate();
+  if(m>=8&&m<=11){render(m,d-1);notice.textContent='';}
+  else {render(8,0);notice.textContent='現在は8〜11月ではないため、8月1日を表示しています。';}
+}
+document.getElementById('prevBtn').addEventListener('click',()=>move(-1));
+document.getElementById('nextBtn').addEventListener('click',()=>move(1));
+document.getElementById('todayBtn').addEventListener('click',showToday);
+monthSelect.addEventListener('change',e=>{render(Number(e.target.value),0);notice.textContent='';});
+daySelect.addEventListener('change',e=>{render(currentMonth,Number(e.target.value)-1);notice.textContent='';});
+showToday();
+</script>
+</body>
+</html>
